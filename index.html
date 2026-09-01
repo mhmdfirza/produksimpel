@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rumah Anyam — Katalog</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <h1 id="toko-nama">Memuat...</h1>
+      <p id="toko-tagline" class="tagline"></p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="cari" type="search" placeholder="Cari produk..." autocomplete="off">
+      <div id="kategori-tabs" class="kategori-tabs"></div>
+    </div>
+
+    <div id="grid" class="grid" aria-live="polite"></div>
+    <p id="kosong" class="kosong" hidden>Tidak ada produk yang cocok. Coba kata kunci lain.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Pesan langsung lewat WhatsApp — harga bisa nego untuk pembelian banyak.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
