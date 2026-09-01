@@ -10,9 +10,9 @@ function formatRupiah(angka) {
   return 'Rp' + angka.toLocaleString('id-ID');
 }
 
-function linkWhatsApp(nomor, namaProduk) {
-  const pesan = encodeURIComponent(`Halo, saya mau tanya soal produk "${namaProduk}".`);
-  return `https://wa.me/${nomor}?text=${pesan}`;
+function labelHarga(properti) {
+  const harga = formatRupiah(properti.harga);
+  return properti.status === 'Disewa' ? `${harga} / bulan` : harga;
 }
 
 function renderKategori() {
@@ -36,7 +36,7 @@ function renderProduk() {
   const hasil = data.produk.filter(p => {
     const cocokKategori = kategoriAktif === 'Semua' || p.kategori === kategoriAktif;
     const cocokKata = p.nama.toLowerCase().includes(kataKunci) ||
-                       p.deskripsi.toLowerCase().includes(kataKunci);
+      p.lokasi.alamat.toLowerCase().includes(kataKunci);
     return cocokKategori && cocokKata;
   });
 
@@ -44,22 +44,24 @@ function renderProduk() {
   kosong.hidden = hasil.length > 0;
 
   hasil.forEach(p => {
-    const kartu = document.createElement('article');
+    const kartu = document.createElement('a');
     kartu.className = 'kartu';
+    kartu.href = `detail.html?id=${p.id}`;
     kartu.innerHTML = `
       <div class="kartu-gambar">
-        <img src="${p.gambar}" alt="${p.nama}" loading="lazy">
-        ${!p.stok ? '<span class="badge-habis">Stok habis</span>' : ''}
+        <img src="${p.gambar[0]}" alt="${p.nama}" loading="lazy">
+        ${!p.stok ? '<span class="badge-habis">Terjual / Tersewa</span>' : ''}
+        <span class="badge-status">${p.status}</span>
       </div>
       <div class="kartu-isi">
         <h3>${p.nama}</h3>
-        <p>${p.deskripsi}</p>
-        <span class="harga">${formatRupiah(p.harga)}</span>
-        <a class="tombol-pesan ${!p.stok ? 'nonaktif' : ''}"
-           href="${p.stok ? linkWhatsApp(data.toko.whatsapp, p.nama) : '#'}"
-           target="_blank" rel="noopener">
-          ${p.stok ? 'Pesan via WhatsApp' : 'Habis'}
-        </a>
+        <p class="lokasi-ringkas">${p.lokasi.alamat}</p>
+        <div class="spek-ringkas">
+          ${p.spesifikasi.luas_bangunan ? `<span>${p.spesifikasi.luas_bangunan} m²</span>` : ''}
+          ${p.spesifikasi.kamar_tidur ? `<span>${p.spesifikasi.kamar_tidur} KT</span>` : ''}
+          ${p.spesifikasi.kamar_mandi ? `<span>${p.spesifikasi.kamar_mandi} KM</span>` : ''}
+        </div>
+        <span class="harga">${labelHarga(p)}</span>
       </div>
     `;
     grid.appendChild(kartu);
@@ -68,8 +70,8 @@ function renderProduk() {
 
 async function init() {
   try {
-    const res = await fetch('products.json');
-    if (!res.ok) throw new Error('Gagal memuat data produk');
+    const res = await fetch('properti.json');
+    if (!res.ok) throw new Error('Gagal memuat data properti');
     data = await res.json();
 
     document.getElementById('toko-nama').textContent = data.toko.nama;
@@ -80,7 +82,7 @@ async function init() {
 
     inputCari.addEventListener('input', renderProduk);
   } catch (err) {
-    grid.innerHTML = `<p class="kosong">Terjadi kesalahan memuat produk. Pastikan file products.json ada.</p>`;
+    grid.innerHTML = `<p class="kosong">Terjadi kesalahan memuat properti. Pastikan file properti.json ada.</p>`;
     console.error(err);
   }
 }

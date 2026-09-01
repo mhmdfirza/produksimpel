@@ -1,0 +1,123 @@
+{
+  "toko": {
+    "nama": "IDEA Properti",
+    "tagline": "Properti pilihan di area Surabaya, Malang, dan Tulungagung",
+    "whatsapp": "6289516392061"
+  },
+  "kategori": [
+    "Semua",
+    "Rumah",
+    "Apartemen",
+    "Tanah",
+    "Ruko"
+  ],
+  "produk": [
+    {
+      "id": "prop001",
+      "nama": "Rumah Minimalis Dua Lantai Kaliurang",
+      "kategori": "Rumah",
+      "status": "Dijual",
+      "harga": 1250000000,
+      "stok": true,
+      "lokasi": {
+        "alamat": "Jl. Kaliurang KM 10, Sleman, Yogyakarta",
+        "lat": -7.7180,
+        "lng": 110.3990
+      },
+      "spesifikasi": {
+        "luas_tanah": 120,
+        "luas_bangunan": 150,
+        "kamar_tidur": 3,
+        "kamar_mandi": 2,
+        "carport": 1,
+        "tahun_dibangun": 2019
+      },
+      "gambar": [
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=900&q=80",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
+        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&q=80"
+      ],
+      "deskripsi": "Rumah dua lantai dengan desain minimalis modern, lokasi asri dekat kawasan Kaliurang. Ruang tamu dan dapur menyatu dengan konsep open plan, sirkulasi udara baik, serta taman kecil di bagian depan. Cocok untuk keluarga muda yang mencari hunian tenang namun tetap dekat akses kota."
+    },
+    {
+      "id": "prop002",
+      "nama": "Apartemen Studio Malioboro City",
+      "kategori": "Apartemen",
+      "status": "Disewa",
+      "harga": 3500000,
+      "stok": true,
+      "lokasi": {
+        "alamat": "Malioboro City Apartment, Yogyakarta",
+        "lat": -7.7891,
+        "lng": 110.3672
+      },
+      "spesifikasi": {
+        "luas_tanah": null,
+        "luas_bangunan": 24,
+        "kamar_tidur": 1,
+        "kamar_mandi": 1,
+        "carport": 0,
+        "tahun_dibangun": 2015
+      },
+      "gambar": [
+        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80",
+        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80"
+      ],
+      "deskripsi": "Unit studio fully furnished, siap huni, lokasi strategis dekat pusat kota dan kampus. Fasilitas gedung mencakup kolam renang, gym, dan keamanan 24 jam. Harga sewa per bulan, cocok untuk mahasiswa atau pekerja."
+    },
+    {
+      "id": "prop003",
+      "nama": "Tanah Kavling Siap Bangun Bantul",
+      "kategori": "Tanah",
+      "status": "Dijual",
+      "harga": 450000000,
+      "stok": true,
+      "lokasi": {
+        "alamat": "Jl. Parangtritis KM 12, Bantul, Yogyakarta",
+        "lat": -7.9200,
+        "lng": 110.3450
+      },
+      "spesifikasi": {
+        "luas_tanah": 200,
+        "luas_bangunan": null,
+        "kamar_tidur": null,
+        "kamar_mandi": null,
+        "carport": null,
+        "tahun_dibangun": null
+      },
+      "gambar": [
+        "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=900&q=80",
+        "https://images.unsplash.com/photo-1500076656116-558758c991c1?w=900&q=80"
+      ],
+      "deskripsi": "Tanah kavling siap bangun, akses jalan aspal, dekat jalur utama menuju Pantai Parangtritis. Sertifikat hak milik, cocok untuk investasi maupun hunian pribadi."
+    },
+    {
+      "id": "prop004",
+      "nama": "Ruko Dua Lantai Jalan Magelang",
+      "kategori": "Ruko",
+      "status": "Dijual",
+      "harga": 980000000,
+      "stok": false,
+      "lokasi": {
+        "alamat": "Jl. Magelang KM 6, Sleman, Yogyakarta",
+        "lat": -7.7400,
+        "lng": 110.3650
+      },
+      "spesifikasi": {
+        "luas_tanah": 80,
+        "luas_bangunan": 140,
+        "kamar_tidur": 2,
+        "kamar_mandi": 2,
+        "carport": 1,
+        "tahun_dibangun": 2017
+      },
+      "gambar": [
+        "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=900&q=80",
+        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=900&q=80"
+      ],
+      "deskripsi": "Ruko strategis di jalur utama, cocok untuk usaha kuliner, toko, atau kantor kecil. Lantai dua dapat difungsikan sebagai tempat tinggal maupun gudang."
+    }
+  ]
+}
