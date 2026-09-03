@@ -14,14 +14,6 @@ function linkWhatsApp(nomor, namaProperti) {
   return `https://wa.me/${nomor}?text=${pesan}`;
 }
 
-function linkPetaEmbed(lat, lng) {
-  return `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
-}
-
-function linkPetaEksternal(lat, lng) {
-  return `https://www.google.com/maps?q=${lat},${lng}`;
-}
-
 function baris(label, nilai) {
   if (nilai === null || nilai === undefined) return '';
   return `<div class="spek-baris"><span>${label}</span><strong>${nilai}</strong></div>`;
