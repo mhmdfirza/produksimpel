@@ -1,42 +1,42 @@
 const konten = document.getElementById('konten-detail');
 
 function formatRupiah(angka) {
-    return 'Rp' + angka.toLocaleString('id-ID');
+  return 'Rp' + angka.toLocaleString('id-ID');
 }
 
 function labelHarga(properti) {
-    const harga = formatRupiah(properti.harga);
-    return properti.status === 'Disewa' ? `${harga} / bulan` : harga;
+  const harga = formatRupiah(properti.harga);
+  return properti.status === 'Disewa' ? `${harga} / bulan` : harga;
 }
 
 function linkWhatsApp(nomor, namaProperti) {
-    const pesan = encodeURIComponent(`Halo, saya tertarik dengan properti "${namaProperti}". Boleh minta informasi lebih lanjut?`);
-    return `https://wa.me/${nomor}?text=${pesan}`;
+  const pesan = encodeURIComponent(`Halo, saya tertarik dengan properti "${namaProperti}". Boleh minta informasi lebih lanjut?`);
+  return `https://wa.me/${nomor}?text=${pesan}`;
 }
 
 function linkPetaEmbed(lat, lng) {
-    return `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
+  return `https://www.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
 }
 
 function linkPetaEksternal(lat, lng) {
-    return `https://www.google.com/maps?q=${lat},${lng}`;
+  return `https://www.google.com/maps?q=${lat},${lng}`;
 }
 
 function baris(label, nilai) {
-    if (nilai === null || nilai === undefined) return '';
-    return `<div class="spek-baris"><span>${label}</span><strong>${nilai}</strong></div>`;
+  if (nilai === null || nilai === undefined) return '';
+  return `<div class="spek-baris"><span>${label}</span><strong>${nilai}</strong></div>`;
 }
 
 function render(properti, whatsappToko) {
-    document.getElementById('tab-title').textContent = `${properti.nama} — Wisma Griya`;
+  document.getElementById('tab-title').textContent = `${properti.nama} — Wisma Griya`;
 
-    const galeriThumb = properti.gambar.map((src, i) => `
+  const galeriThumb = properti.gambar.map((src, i) => `
     <button class="thumb ${i === 0 ? 'aktif' : ''}" data-src="${src}">
       <img src="${src}" alt="Foto ${i + 1} ${properti.nama}">
     </button>
   `).join('');
 
-    konten.innerHTML = `
+  konten.innerHTML = `
     <div class="detail-galeri">
       <div class="galeri-utama">
         <img id="gambar-utama" src="${properti.gambar[0]}" alt="${properti.nama}">
@@ -63,19 +63,6 @@ function render(properti, whatsappToko) {
       <h2>Deskripsi</h2>
       <p class="deskripsi">${properti.deskripsi}</p>
 
-      <h2>Lokasi</h2>
-      <div class="peta-bungkus">
-        <iframe
-          src="${linkPetaEmbed(properti.lokasi.lat, properti.lokasi.lng)}"
-          width="100%" height="300" style="border:0"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
-      <a class="tautan-peta" href="${linkPetaEksternal(properti.lokasi.lat, properti.lokasi.lng)}" target="_blank" rel="noopener">
-        Buka lokasi di Google Maps ↗
-      </a>
-
       <a class="tombol-pesan tombol-pesan--besar ${!properti.stok ? 'nonaktif' : ''}"
          href="${properti.stok ? linkWhatsApp(whatsappToko, properti.nama) : '#'}"
          target="_blank" rel="noopener">
@@ -84,41 +71,41 @@ function render(properti, whatsappToko) {
     </div>
   `;
 
-    // Ganti gambar utama saat thumbnail diklik
-    document.querySelectorAll('.thumb').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.getElementById('gambar-utama').src = btn.dataset.src;
-            document.querySelectorAll('.thumb').forEach(b => b.classList.remove('aktif'));
-            btn.classList.add('aktif');
-        });
+  // Ganti gambar utama saat thumbnail diklik
+  document.querySelectorAll('.thumb').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.getElementById('gambar-utama').src = btn.dataset.src;
+      document.querySelectorAll('.thumb').forEach(b => b.classList.remove('aktif'));
+      btn.classList.add('aktif');
     });
+  });
 }
 
 async function init() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
 
-    if (!id) {
-        konten.innerHTML = `<p class="kosong">Properti tidak ditemukan. <a href="index.html">Kembali ke katalog</a>.</p>`;
-        return;
+  if (!id) {
+    konten.innerHTML = `<p class="kosong">Properti tidak ditemukan. <a href="index.html">Kembali ke katalog</a>.</p>`;
+    return;
+  }
+
+  try {
+    const res = await fetch('properti.json');
+    if (!res.ok) throw new Error('Gagal memuat data properti');
+    const data = await res.json();
+
+    const properti = data.produk.find(p => p.id === id);
+    if (!properti) {
+      konten.innerHTML = `<p class="kosong">Properti tidak ditemukan. <a href="index.html">Kembali ke katalog</a>.</p>`;
+      return;
     }
 
-    try {
-        const res = await fetch('properti.json');
-        if (!res.ok) throw new Error('Gagal memuat data properti');
-        const data = await res.json();
-
-        const properti = data.produk.find(p => p.id === id);
-        if (!properti) {
-            konten.innerHTML = `<p class="kosong">Properti tidak ditemukan. <a href="index.html">Kembali ke katalog</a>.</p>`;
-            return;
-        }
-
-        render(properti, data.toko.whatsapp);
-    } catch (err) {
-        konten.innerHTML = `<p class="kosong">Terjadi kesalahan memuat detail properti.</p>`;
-        console.error(err);
-    }
+    render(properti, data.toko.whatsapp);
+  } catch (err) {
+    konten.innerHTML = `<p class="kosong">Terjadi kesalahan memuat detail properti.</p>`;
+    console.error(err);
+  }
 }
 
 init();
