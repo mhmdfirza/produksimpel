@@ -181,3 +181,10 @@ Pilih salah satu (semua gratis, tanpa server, tanpa konfigurasi build):
 - [ ] Tidak ada properti dengan `id` duplikat
 - [ ] `properti.json` sudah divalidasi (tidak ada syntax error)
 - [ ] Dicoba di local server dan tampil normal sebelum di-deploy
+
+
+# TO DO LIST
+
+1. terapkan system font jadi gaperlu ambil dari eksternal dependency
+2. perbaiki vulnerability di innerHTML
+3. tambahkan security headers
